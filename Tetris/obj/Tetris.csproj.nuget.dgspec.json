@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\Theodorrrrrrrrrrrrrr\\Documents\\GitHub\\TEProjekt\\MyGame\\MyGame.csproj": {}
+    "C:\\Users\\Theodorrrrrrrrrrrrrr\\Documents\\GitHub\\TEProjekt\\Tetris\\Tetris.csproj": {}
   },
   "projects": {
-    "c:\\Users\\Theodorrrrrrrrrrrrrr\\Documents\\GitHub\\TEProjekt\\MyGame\\MyGame.csproj": {
+    "C:\\Users\\Theodorrrrrrrrrrrrrr\\Documents\\GitHub\\TEProjekt\\Tetris\\Tetris.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\Theodorrrrrrrrrrrrrr\\Documents\\GitHub\\TEProjekt\\MyGame\\MyGame.csproj",
-        "projectName": "MyGame",
-        "projectPath": "c:\\Users\\Theodorrrrrrrrrrrrrr\\Documents\\GitHub\\TEProjekt\\MyGame\\MyGame.csproj",
+        "projectUniqueName": "C:\\Users\\Theodorrrrrrrrrrrrrr\\Documents\\GitHub\\TEProjekt\\Tetris\\Tetris.csproj",
+        "projectName": "Tetris",
+        "projectPath": "C:\\Users\\Theodorrrrrrrrrrrrrr\\Documents\\GitHub\\TEProjekt\\Tetris\\Tetris.csproj",
         "packagesPath": "C:\\Users\\Theodorrrrrrrrrrrrrr\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\Theodorrrrrrrrrrrrrr\\Documents\\GitHub\\TEProjekt\\MyGame\\obj\\",
+        "outputPath": "C:\\Users\\Theodorrrrrrrrrrrrrr\\Documents\\GitHub\\TEProjekt\\Tetris\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Theodorrrrrrrrrrrrrr\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -35,16 +35,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "dependencies": {
-            "MonoGame.Content.Builder.Task": {
-              "target": "Package",
-              "version": "[3.8.0.1641, )"
-            },
-            "MonoGame.Framework.DesktopGL": {
-              "target": "Package",
-              "version": "[3.8.0.1641, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
