@@ -66,28 +66,28 @@ namespace Tetris
         //     timerThread.IsBackground = true;
         // }
     }
-    class MainMenu
+    public class MainMenu
     {
         static void Draw()
         {
             Console.WriteLine("MainMenu");
         }
     }
-    class PlayingField
+    public class PlayingField
     {
         static void Draw()
         {
             Console.WriteLine("MainMenu");
         }
     }
-    class NextField
+    public class NextField
     {
         static void Draw()
         {
             Console.WriteLine("MainMenu");
         }
     }
-    class HoldField
+    public class HoldField
     {
         static HeldTetrimino heldTetrimino = new HeldTetrimino();
         static void Draw()
@@ -96,33 +96,13 @@ namespace Tetris
             Console.WriteLine();
         }
     }
-    class HeldTetrimino
+    public class HeldTetrimino
     {
         static string activeTetrimino = "";
         static List<string> inactiveTetrimino = new List<string>();
     }
-    class LTetrimino
+    public class Tetrimino 
     {
-        
-    }
-    class ReverseLTetrimino
-    {
-        
-    }
-    class TTetrimino
-    {
-        
-    }
-    class ITetrimino
-    {
-        
-    }
-    class ZTetrimino
-    {
-        
-    }
-    class ReverseZTetrimino
-    {
-        
+
     }
 }
