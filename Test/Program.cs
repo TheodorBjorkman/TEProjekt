@@ -6,11 +6,11 @@ using System.Timers;
 /*
 Om man använder en int som enumerator är for loop bäst, annars är oftast det bäst med while loop eller en foreach om du inte manipulerar innehållet av en collection.
 */
-//Notes: Kommentera, fixa input/safe parse för speed och size med min size/tickSpeed
 namespace Test
 {
     class Program
     {
+        //Class variables in main class
         static int writeDelay = 200;
         static System.Timers.Timer mainTimer;
         static Level level;
@@ -19,66 +19,71 @@ namespace Test
         static bool first = true;
         static int moveCycle = 0;
         static int syncCheck = 0;
-        static int tickTime = 500;
-        static int[] bounds = { 6, 5 };
+        static int tickTime;
+        static int[] bounds = new int[2];
         static void Main()
         {
+            //Fix UTF-8
             Console.OutputEncoding = System.Text.Encoding.UTF8;
+            //Asks for size and tick speed
+            Setup();
+            //Create new objects
             level = new Level(bounds[0], bounds[1]);
             snake = new Snake(level.xSize, level.ySize);
             food = new Food(level.xSize, level.ySize);
+            //Set positions of food and snake on level as well as draw them
             int[] foodPos = food.Reposition();
             CheckFoodPos();
             level.content[snake.xPosList[0], snake.yPosList[0]] = 1;
             level.content[foodPos[0], foodPos[1]] = 2;
             level.Draw();
             switch (Console.ReadKey(true).Key)
-                {
-                    case ConsoleKey.UpArrow:
-                        snake.direction = 0;
-                        syncCheck = moveCycle;
-                        break;
-                    case ConsoleKey.RightArrow:
-                        snake.direction = 1;
-                        syncCheck = moveCycle;
-                        break;
-                    case ConsoleKey.DownArrow:
-                        snake.direction = 2;
-                        syncCheck = moveCycle;
-                        break;
-                    case ConsoleKey.LeftArrow:
-                        snake.direction = 3;
-                        syncCheck = moveCycle;
-                        break;
-                }
+            {
+                case ConsoleKey.UpArrow:
+                    snake.direction = 0;
+                    syncCheck = moveCycle;
+                    break;
+                case ConsoleKey.RightArrow:
+                    snake.direction = 1;
+                    syncCheck = moveCycle;
+                    break;
+                case ConsoleKey.DownArrow:
+                    snake.direction = 2;
+                    syncCheck = moveCycle;
+                    break;
+                case ConsoleKey.LeftArrow:
+                    snake.direction = 3;
+                    syncCheck = moveCycle;
+                    break;
+            }
             StartTimer(tickTime);
             while (true)
             {
                 switch (Console.ReadKey(true).Key)
                 {
                     case ConsoleKey.UpArrow:
-                        if((snake.direction != 2 && snake.direction != 0) && syncCheck != moveCycle)
+                        if ((snake.direction != 2 && snake.direction != 0) && syncCheck != moveCycle)
                         {
                             snake.direction = 0;
                             syncCheck = moveCycle;
                         }
                         break;
                     case ConsoleKey.RightArrow:
-                        if((snake.direction != 3 && snake.direction != 1) && syncCheck != moveCycle)
+                        if ((snake.direction != 3 && snake.direction != 1) && syncCheck != moveCycle)
                         {
                             snake.direction = 1;
                             syncCheck = moveCycle;
                         }
                         break;
                     case ConsoleKey.DownArrow:
-                        if((snake.direction != 0 && snake.direction != 2) && syncCheck != moveCycle)
+                        if ((snake.direction != 0 && snake.direction != 2) && syncCheck != moveCycle)
                         {
                             snake.direction = 2;
                             syncCheck = moveCycle;
                         }
                         break;
                     case ConsoleKey.LeftArrow:
-                        if((snake.direction != 1 && snake.direction != 3) && syncCheck != moveCycle)
+                        if ((snake.direction != 1 && snake.direction != 3) && syncCheck != moveCycle)
                         {
                             snake.direction = 3;
                             syncCheck = moveCycle;
@@ -86,6 +91,52 @@ namespace Test
                         break;
                 }
             }
+        }
+        static void Setup()
+        {
+            bool legal = false;
+            while (!legal)
+            {
+                Console.WriteLine("Please enter x size of level (min 5):");
+                string input = Console.ReadLine();
+                int output = ParseInt(input);
+                if (output >= 5)
+                {
+                    legal = true;
+                    bounds[0] = output;
+                }
+            }
+            legal = false;
+            while (!legal)
+            {
+                Console.WriteLine("Please enter y size of level (min 6):");
+                string input = Console.ReadLine();
+                int output = ParseInt(input);
+                if (output >= 6)
+                {
+                    legal = true;
+                    bounds[1] = output;
+                }
+            }
+            legal = false;
+            while (!legal)
+            {
+                Console.WriteLine("Please enter speed of clock in milliseconds (min 250):");
+                string input = Console.ReadLine();
+                int output = ParseInt(input);
+                if (output >= 250)
+                {
+                    legal = true;
+                    tickTime = output;
+                }
+            }
+        }
+        static int ParseInt(string input)
+        {
+            bool success;
+            int output = -1;
+            success = int.TryParse(input, out output);
+            return output;
         }
         static void Logic()
         {
@@ -115,7 +166,7 @@ namespace Test
             {
                 if (x == snake.xPosList[i] && y == snake.yPosList[i]) Death();
             }
-            if(x < 0 || y < 0 || x > bounds[0] || y > bounds[1]) Death();
+            if (x < 0 || y < 0 || x > bounds[0] || y > bounds[1]) Death();
         }
         static void Eat()
         {
@@ -123,7 +174,7 @@ namespace Test
             int[] foodPos = food.Reposition();
             while (test)
             {
-            test = CheckFoodPos();
+                test = CheckFoodPos();
             }
             snake.Increment();
         }
@@ -182,7 +233,7 @@ namespace Test
             {
                 SlowWrite(temp, WriteLine);
             }
-        }   
+        }
     }
     public class Level
     {
@@ -245,8 +296,8 @@ namespace Test
             length = 1;
             prevLength = 1;
             newLength = 1;
-            xPosList.Add((int)Math.Round((xBound / 2) - 0,5));
-            yPosList.Add((int)Math.Round((yBound / 2) - 0,5));
+            xPosList.Add((int)Math.Round((xBound / 2) - 0, 5));
+            yPosList.Add((int)Math.Round((yBound / 2) - 0, 5));
             xB = xBound;
             yB = yBound;
         }
@@ -258,7 +309,7 @@ namespace Test
         public static int newLength;
         public static decimal xB;
         public static decimal yB;
-        public void Increment() 
+        public void Increment()
         {
             newLength++;
         }
@@ -267,8 +318,8 @@ namespace Test
             length = 1;
             prevLength = 1;
             newLength = 1;
-            xPosList.Add((int)Math.Round((xB / 2) - 0,5));
-            yPosList.Add((int)Math.Round((yB / 2) - 0,5));
+            xPosList.Add((int)Math.Round((xB / 2) - 0, 5));
+            yPosList.Add((int)Math.Round((yB / 2) - 0, 5));
         }
         public void Move()
         {
@@ -295,8 +346,8 @@ namespace Test
             //Move body
             for (int i = 1; i < length; i++)
             {
-                xPosList[i] = xPosListTemp[i-1];
-                yPosList[i] = yPosListTemp[i-1];
+                xPosList[i] = xPosListTemp[i - 1];
+                yPosList[i] = yPosListTemp[i - 1];
             }
             //Add new body part
             length = newLength;
@@ -311,7 +362,7 @@ namespace Test
     public class Food
     {
         Random rnd = new Random();
-        public Food(int xB, int yB) 
+        public Food(int xB, int yB)
         {
             xBound = xB;
             yBound = yB;
