@@ -12,7 +12,6 @@ namespace Test
     class Program
     {
         //Class variables in main class
-        static Thread drawThread = new Thread(new ThreadStart(UpdateEvent));
         static int writeDelay = 200;
         static System.Timers.Timer mainTimer;
         static Level level;
@@ -106,10 +105,10 @@ namespace Test
             bool legal = false;
             while (!legal)
             {
-                Console.WriteLine("Please enter x size of level (min 5):");
+                Console.WriteLine("Please enter x size of level (min 5, max 15):");
                 string input = Console.ReadLine();
                 int output = ParseInt(input);
-                if (output >= 5)
+                if (output >= 5 && output <= 15)
                 {
                     legal = true;
                     bounds[0] = output;
@@ -118,10 +117,10 @@ namespace Test
             legal = false;
             while (!legal)
             {
-                Console.WriteLine("Please enter y size of level (min 6):");
+                Console.WriteLine("Please enter y size of level (min 6, max 16):");
                 string input = Console.ReadLine();
                 int output = ParseInt(input);
-                if (output >= 6)
+                if (output >= 6 && output <= 16)
                 {
                     legal = true;
                     bounds[1] = output;
@@ -166,6 +165,7 @@ namespace Test
             level.content[food.x, food.y] = 2;
             //Increases the move cycle to sync direction change.
             moveCycle++;
+            level.Draw();
         }
         //Checks if snake head is on the same position as food. Calls Eat() if true.
         static void CheckEat()
@@ -222,7 +222,6 @@ namespace Test
         {
             if (first == true)
             {
-                drawThread.Start();
                 first = false;
                 mainTimer = new System.Timers.Timer(time);
                 //Adds TimedEvent on each completion
@@ -237,17 +236,12 @@ namespace Test
         {
             Logic();
         }
-        static void UpdateEvent()
-        {
-            level.Draw();
-        }
 
         //Stops and disposes of timer.
         static void StopTimer()
         {
             mainTimer.Stop();
             mainTimer.Dispose();
-            drawThread.Abort();
         }
         //Slow write function in case wanted. Overloaded for string arrays.
         static void SlowWrite(string input, bool WriteLine = true)
